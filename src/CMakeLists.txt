@@ -1,4 +1,4 @@
-add_library(jsonparser STATIC Node.cpp Token.cpp Parser.cpp)
+add_library(jsonparser STATIC Node.cpp Token.cpp)
 
 add_subdirectory(utility)
 
