@@ -1,0 +1,10 @@
+#ifndef SBSERVERCLIENT_JSONTYPES_H
+#define SBSERVERCLIENT_JSONTYPES_H
+
+namespace JSON{
+    enum class Types{
+        NULLTYPE = 0, NUMBER, BOOLEAN, STRING, ARRAY, OBJECT
+    };
+}
+
+#endif //SBSERVERCLIENT_JSONTYPES_H
