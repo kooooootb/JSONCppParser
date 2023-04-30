@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Node.h"
+#include "JSON/Node.h"
 
 namespace JSON {
     Node::Node() = default;
