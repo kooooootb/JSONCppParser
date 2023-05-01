@@ -102,7 +102,7 @@ namespace JSON {
                         throw std::runtime_error("invalid syntax while parsing array");
                 }
 
-                array.push_back(curNode);
+                array->push_back(curNode);
                 token = tokenizer.getToken();
                 if(token.type == Tokens::ARRAY_CLOSED){
                     break;
@@ -136,22 +136,22 @@ namespace JSON {
 
                 switch(token.type) {
                     case Tokens::STRING:
-                        object[key] = parseString(token);
+                        (*object)[key] = parseString(token);
                         break;
                     case Tokens::ARRAY_OPEN:
-                        object[key] = parseArray();
+                        (*object)[key] = parseArray();
                         break;
                     case Tokens::NUMBER:
-                        object[key] = parseNumber(token);
+                        (*object)[key] = parseNumber(token);
                         break;
                     case Tokens::BOOLEAN:
-                        object[key] = parseBoolean(token);
+                        (*object)[key] = parseBoolean(token);
                         break;
                     case Tokens::CURLY_OPEN:
-                        object[key] = parseObject();
+                        (*object)[key] = parseObject();
                         break;
                     case Tokens::NULLTYPE:
-                        object[key] = parseNull();
+                        (*object)[key] = parseNull();
                         break;
                     default:
                         throw std::runtime_error("invalid syntax in object parsing");
@@ -173,7 +173,7 @@ namespace JSON {
     template<class TStream>
     std::shared_ptr<Node> Parser<TStream>::parseString(Token &token) {
         std::shared_ptr<Node> node = std::make_shared<Node>();
-        std::string string = token.value;
+        String string = std::make_shared<String::element_type>(token.value);
         node->setValue(string);
         return node;
     }

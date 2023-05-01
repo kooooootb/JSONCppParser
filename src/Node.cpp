@@ -23,15 +23,15 @@ namespace JSON {
         } else if(std::holds_alternative<bool>(value)){
             bool bol = std::get<bool>(value);
             ostream << (bol ? "true" : "false");
-        } else if(std::holds_alternative<std::string>(value)){
-            ostream << "\"" << std::get<std::string>(value) << "\"";
+        } else if(std::holds_alternative<std::shared_ptr<std::string>>(value)){
+            ostream << "\"" << *std::get<String>(value) << "\"";
         } else if(std::holds_alternative<std::monostate>(value)){
             ostream << "null";
         } else if(std::holds_alternative<Array>(value)){
             auto &array = std::get<Array>(value);
             ostream << "[";
-            size_t index = 0, size = array.size();
-            for(const auto &node : array){
+            size_t index = 0, size = array->size();
+            for(const auto &node : *array){
                 node->printNode(ostream, indentation);
                 if(index++ < size - 1){
                     ostream << ", ";
@@ -41,8 +41,8 @@ namespace JSON {
         } else if(std::holds_alternative<Object>(value)) {
             auto &object = std::get<Object>(value);
             ostream << "{\n";
-            size_t index = 0, size = object.size();
-            for (const auto &nodePair: object) {
+            size_t index = 0, size = object->size();
+            for (const auto &nodePair: *object) {
                 ostream << std::string(indentation, '\t');
                 ostream << "\"" << nodePair.first << "\": ";
                 nodePair.second->printNode(ostream, indentation);

@@ -11,11 +11,12 @@ namespace JSON{
 
 #include "Object.h"
 #include "Array.h"
+#include "String.h"
 
 namespace JSON{
     class Node {
     private:
-        std::variant<double, bool, std::string, Array, Object, std::monostate> value;
+        std::variant<double, bool, String, Array, Object, std::monostate> value;
     public:
         Node();
 

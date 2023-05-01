@@ -7,7 +7,7 @@
 #include "Node.h"
 
 namespace JSON {
-    using Array = std::list<std::shared_ptr<Node>>;
+    using Array = std::shared_ptr<std::list<std::shared_ptr<Node>>>;
 }
 
 

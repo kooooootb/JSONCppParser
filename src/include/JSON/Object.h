@@ -7,7 +7,7 @@
 #include "Node.h"
 
 namespace JSON{
-    using Object = std::map<std::string, std::shared_ptr<Node>>;
+    using Object = std::shared_ptr<std::map<std::string, std::shared_ptr<Node>>>;
 }
 
 
