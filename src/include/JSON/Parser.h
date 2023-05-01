@@ -11,11 +11,12 @@ namespace JSON {
     template<class TStream>
     class Parser {
     private:
-        TStream &istream;
         std::shared_ptr<Node> root = nullptr;
         std::unique_ptr<Node> current = nullptr;
 
         Tokenizer<TStream> tokenizer;
+
+        void parse();
     public:
         Parser(TStream &istream_);
 
@@ -26,14 +27,11 @@ namespace JSON {
         std::shared_ptr<Node> parseBoolean(Token &token);
         std::shared_ptr<Node> parseNull();
 
-        void parse();
-
-        const Node &getRoot() const;
-        Node &getRoot();
+        std::shared_ptr<Node> getRoot() const;
     };
 
     template<class TStream>
-    Parser<TStream>::Parser(TStream &istream_) : istream(istream_) , tokenizer(istream_) {
+    Parser<TStream>::Parser(TStream &istream_) : tokenizer(istream_) {
         parse();
     }
 
@@ -205,12 +203,8 @@ namespace JSON {
     }
 
     template<class TStream>
-    const Node &Parser<TStream>::getRoot() const {
-        return *root;
-    }
-    template<class TStream>
-    Node &Parser<TStream>::getRoot() {
-        return *root;
+    std::shared_ptr<Node> Parser<TStream>::getRoot() const {
+        return root;
     }
 }
 
