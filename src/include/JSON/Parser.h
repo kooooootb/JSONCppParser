@@ -41,6 +41,10 @@ namespace JSON {
             Token token = tokenizer.getToken();
             std::shared_ptr<Node> node;
 
+            if(token.type == Tokens::CURLY_CLOSED){
+                break;
+            }
+
             switch(token.type){
                 case Tokens::CURLY_OPEN:
                     node = parseObject();
@@ -78,6 +82,10 @@ namespace JSON {
             } else{
                 Token token = tokenizer.getToken();
                 std::shared_ptr<Node> curNode;
+
+                if(token.type == Tokens::ARRAY_CLOSED){
+                    break;
+                }
 
                 switch(token.type){
                     case Tokens::ARRAY_OPEN:
