@@ -70,7 +70,7 @@ namespace JSON {
     template<class TStream>
     std::shared_ptr<Node> Parser<TStream>::parseArray() {
         std::shared_ptr<Node> node = std::make_shared<Node>();
-        Array array;
+        Array array = std::make_shared<std::list<std::shared_ptr<Node>>>();
 
         while(true){
             if(!tokenizer.hasMoreTokens()){
@@ -119,7 +119,7 @@ namespace JSON {
     template<class TStream>
     std::shared_ptr<Node> Parser<TStream>::parseObject() {
         std::shared_ptr<Node> node = std::make_shared<Node>();
-        Object object;
+        Object object = std::make_shared<std::map<std::string, std::shared_ptr<Node>>>();
         while(true){
             if(!tokenizer.hasMoreTokens()){
                 throw std::runtime_error("invalid syntax while parsing object, need closing bracket");
