@@ -41,6 +41,7 @@ namespace JSON{
 
         char peek();
         char get();
+        void skip(int skipping);
 
     public:
         explicit Tokenizer(TStream &istream_);
@@ -133,15 +134,15 @@ namespace JSON{
             }
             case Tokens::BOOLEAN:
                 if(c == 'f'){
-                    token.value = "False";
-                    istream.seekg(4, std::ios_base::cur);
+                    token.value = "False"; // why big
+                    skip(4);
                 } else{
                     token.value = "True";
-                    istream.seekg(3, std::ios_base::cur);
+                    skip(3);
                 }
                 break;
             case Tokens::NULLTYPE:
-                istream.seekg(3, std::ios_base::cur);
+                skip(3);
                 break;
             default:
                 //
@@ -169,6 +170,14 @@ namespace JSON{
 //        } while(result == '\0');
 //        return result;
         return istream.get();
+    }
+
+    template<class TStream>
+    void Tokenizer<TStream>::skip(int skipping) {
+//        istream.seekg(3, std::ios_base::cur); // for some reason it fails and skips more than needed
+        for(int i = 0;i < skipping;++i){
+            get();
+        }
     }
 }
 

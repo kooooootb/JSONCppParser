@@ -4,7 +4,7 @@
 #include "JSON/Parser.h"
 
 int main(){
-    std::ifstream ifs("example.txt");
+    std::ifstream ifs("example.json");
 
     JSON::Parser parser(ifs);
     std::cout << *parser.getRoot();

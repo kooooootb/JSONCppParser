@@ -18,7 +18,7 @@ namespace JSON {
 
         void parse();
     public:
-        Parser(TStream &istream_);
+        explicit Parser(TStream &istream_);
 
         std::shared_ptr<Node> parseObject();
         std::shared_ptr<Node> parseArray();
@@ -27,7 +27,7 @@ namespace JSON {
         std::shared_ptr<Node> parseBoolean(Token &token);
         std::shared_ptr<Node> parseNull();
 
-        std::shared_ptr<Node> getRoot() const;
+        [[nodiscard]] std::shared_ptr<Node> getRoot() const;
     };
 
     template<class TStream>
@@ -133,6 +133,12 @@ namespace JSON {
                 throw std::runtime_error("invalid syntax while parsing object, need closing bracket");
             } else{
                 Token keyToken = tokenizer.getToken();
+
+                // check if object is empty
+                if(keyToken.type == Tokens::CURLY_CLOSED){
+                    break;
+                }
+
                 std::string &key = keyToken.value;
 
                 Token colon = tokenizer.getToken();
